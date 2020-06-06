@@ -1,4 +1,117 @@
-.App {
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+.app {
+  --text-color: #1a202c;
+  --bg-color: #edf2f7;
+  --bg-color-600: #e2e8f0;
+
   font-family: sans-serif;
+  min-height: 100vh;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+.app.theme-dark {
+  --text-color: #f7fafc;
+  --bg-color: #1a202c;
+  --bg-color-600: #08090c;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.app-name {
+  font-size: 1.25rem;
+}
+
+.theme-switch-btn {
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
+  border-radius: 2px;
+  padding: 5px 20px;
+  width: 120px;
+}
+
+.house-picker {
+  padding: 15px 20px;
   text-align: center;
+}
+
+.house-list {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.house {
+  background-color: transparent;
+  border: none;
+  color: var(--text-color);
+  font-weight: bold;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.house-logo {
+  margin-top: 15px;
+  --size: 50px;
+  width: var(--size);
+  height: var(--size);
+  transition: 0.1s ease-in;
+}
+
+.house:hover .house-logo {
+  transform: scale(1.05);
+  filter: sepia(0.6);
+}
+
+.house.active .house-logo {
+  transform: scale(1.2);
+  filter: sepia(1);
+}
+
+.table {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  border-spacing: 0;
+  padding: 0 30px;
+}
+
+.table-head {
+  background-color: var(--bg-color-600);
+}
+
+.table-cell {
+  padding: 15px 10px;
 }
