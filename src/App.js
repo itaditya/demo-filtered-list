@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import cn from 'clsx';
 
 import { housesData, charactersData } from './staticData';
@@ -61,6 +61,8 @@ function Table(props) {
   );
 }
 
+const OptimizedTable = React.memo(Table);
+
 function filterByHouse(houseId) {
   return charactersData.filter((character) => {
     if (houseId === 'all') {
@@ -83,7 +85,9 @@ function App() {
     setStateActiveHouseId(houseId);
   }
 
-  const filteredCharacters = filterByHouse(stateActiveHouseId);
+  const filteredCharacters = useMemo(() => {
+    return filterByHouse(stateActiveHouseId);
+  }, [stateActiveHouseId]);
 
   return (
     <div className={cn('app', `theme-${stateTheme}`)}>
@@ -95,7 +99,7 @@ function App() {
       <main className="main">
         <Picker activeHouseId={stateActiveHouseId} onChange={handleFilter} />
         <p>List starts with {filteredCharacters[0].name}</p>
-        <Table charactersList={filteredCharacters} />
+        <OptimizedTable charactersList={filteredCharacters} />
       </main>
     </div>
   );
