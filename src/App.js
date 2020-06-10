@@ -23,7 +23,7 @@ function Picker(props) {
       <h3>Filter by House</h3>
       <ul className="house-list">
         {housesData.map((house) => (
-          <li>
+          <li key={house.id}>
             <button
               className={cn('house', activeHouseId === house.id && 'active')}
               onClick={(event) => onChange(house.id, event)}
@@ -51,7 +51,7 @@ function Table(props) {
       </thead>
       <tbody>
         {charactersList.map((character) => (
-          <tr>
+          <tr key={character.name}>
             <td className="table-cell">{character.name}</td>
             <td className="table-cell">{character.house}</td>
           </tr>
