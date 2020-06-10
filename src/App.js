@@ -5,6 +5,7 @@ import { housesData, charactersData } from './staticData';
 import './styles.css';
 
 function Header(props) {
+  console.log('render: Header');
   const { children } = props;
   return (
     <header className="app-header">
@@ -15,6 +16,7 @@ function Header(props) {
 }
 
 function Picker(props) {
+  console.log('render: Picker');
   const { activeHouseId, onChange } = props;
   return (
     <div className="house-picker">
@@ -37,6 +39,7 @@ function Picker(props) {
 }
 
 function Table(props) {
+  console.log('render: Table');
   const { charactersList } = props;
   return (
     <table className="table">
@@ -68,6 +71,7 @@ function filterByHouse(houseId) {
 }
 
 function App() {
+  console.log('render: App');
   const [stateTheme, setStateTheme] = useState('dark');
   const [stateActiveHouseId, setStateActiveHouseId] = useState('all');
 
