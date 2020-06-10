@@ -20,18 +20,14 @@ function Picker(props) {
     <div className="house-picker">
       <h3>Filter by House</h3>
       <ul className="house-list">
-        {housesData.map(house => (
+        {housesData.map((house) => (
           <li>
             <button
               className={cn('house', activeHouseId === house.id && 'active')}
-              onClick={event => onChange(house.id, event)}
+              onClick={(event) => onChange(house.id, event)}
             >
               <span>{house.name}</span>
-              <img
-                src={house.imageUrl}
-                alt={house.name}
-                className="house-logo"
-              />
+              <img src={house.imageUrl} alt={house.name} className="house-logo" />
             </button>
           </li>
         ))}
@@ -51,7 +47,7 @@ function Table(props) {
         </tr>
       </thead>
       <tbody>
-        {charactersList.map(character => (
+        {charactersList.map((character) => (
           <tr>
             <td className="table-cell">{character.name}</td>
             <td className="table-cell">{character.house}</td>
@@ -63,7 +59,7 @@ function Table(props) {
 }
 
 function filterByHouse(houseId) {
-  return charactersData.filter(character => {
+  return charactersData.filter((character) => {
     if (houseId === 'all') {
       return true;
     }
@@ -75,9 +71,8 @@ function App() {
   const [stateTheme, setStateTheme] = useState('dark');
   const [stateActiveHouseId, setStateActiveHouseId] = useState('all');
 
-
   function handleChangeTheme() {
-    setStateTheme(oldTheme => (oldTheme === 'dark' ? 'light' : 'dark'));
+    setStateTheme((oldTheme) => (oldTheme === 'dark' ? 'light' : 'dark'));
   }
 
   function handleFilter(houseId) {
@@ -93,8 +88,9 @@ function App() {
           {stateTheme === 'light' ? 'Nox' : 'Lumos'}
         </button>
       </Header>
-      <main>
+      <main className="main">
         <Picker activeHouseId={stateActiveHouseId} onChange={handleFilter} />
+        <p>List starts with {filteredCharacters[0].name}</p>
         <Table charactersList={filteredCharacters} />
       </main>
     </div>

@@ -61,9 +61,13 @@ ol {
   width: 120px;
 }
 
+.main {
+  padding: 0 30px;
+}
+
 .house-picker {
-  padding: 15px 20px;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .house-list {
@@ -105,7 +109,6 @@ ol {
   width: 100%;
   text-align: center;
   border-spacing: 0;
-  padding: 0 30px;
 }
 
 .table-head {
