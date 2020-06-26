@@ -61,6 +61,8 @@ function Table(props) {
   );
 }
 
+const OptimizedTable = React.memo(Table);
+
 function filterByHouse(houseId) {
   return charactersData.filter((character) => {
     if (houseId === 'all') {
@@ -95,7 +97,7 @@ function App() {
       <main className="main">
         <Picker activeHouseId={stateActiveHouseId} onChange={handleFilter} />
         <p>List starts with {filteredCharacters[0].name}</p>
-        <Table charactersList={filteredCharacters} />
+        <OptimizedTable charactersList={filteredCharacters} />
       </main>
     </div>
   );
