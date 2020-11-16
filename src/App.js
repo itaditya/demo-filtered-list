@@ -38,9 +38,20 @@ function Picker(props) {
   );
 }
 
+function TableRowInner({ character }) {
+  return (
+    <>
+      <td className="table-cell">{character.name}</td>
+      <td className="table-cell">{character.house}</td>
+    </>
+  );
+}
+
+const OptimizedTableRowInner = React.memo(TableRowInner);
+
 function Table(props) {
   console.log('render: Table');
-  const { charactersList } = props;
+  const { charactersList, shouldCharacterDisplays } = props;
   return (
     <table className="table">
       <thead className="table-head">
@@ -50,10 +61,9 @@ function Table(props) {
         </tr>
       </thead>
       <tbody>
-        {charactersList.map((character) => (
-          <tr key={character.name}>
-            <td className="table-cell">{character.name}</td>
-            <td className="table-cell">{character.house}</td>
+        {charactersList.map((character, index) => (
+          <tr key={character.name} style={{ display: shouldCharacterDisplays[index] ? '' : 'none' }}>
+            <OptimizedTableRowInner character={character} />
           </tr>
         ))}
       </tbody>
@@ -62,15 +72,6 @@ function Table(props) {
 }
 
 const OptimizedTable = React.memo(Table);
-
-function filterByHouse(houseId) {
-  return charactersData.filter((character) => {
-    if (houseId === 'all') {
-      return true;
-    }
-    return character.houseId === houseId;
-  });
-}
 
 function App() {
   console.log('render: App');
@@ -85,9 +86,15 @@ function App() {
     setStateActiveHouseId(houseId);
   }
 
-  const filteredCharacters = useMemo(() => {
-    return filterByHouse(stateActiveHouseId);
-  }, [stateActiveHouseId]);
+  const shouldCharacterDisplays = useMemo(
+    () =>
+      charactersData.map(
+        (character) =>
+          stateActiveHouseId === 'all' ||
+          character.houseId === stateActiveHouseId
+      ),
+    [stateActiveHouseId]
+  );
 
   return (
     <div className={cn('app', `theme-${stateTheme}`)}>
@@ -98,8 +105,8 @@ function App() {
       </Header>
       <main className="main">
         <Picker activeHouseId={stateActiveHouseId} onChange={handleFilter} />
-        <p>List starts with {filteredCharacters[0].name}</p>
-        <OptimizedTable charactersList={filteredCharacters} />
+        <p>List starts with {charactersData[shouldCharacterDisplays.indexOf(true)].name}</p>
+        <OptimizedTable charactersList={charactersData} shouldCharacterDisplays={shouldCharacterDisplays} />
       </main>
     </div>
   );
